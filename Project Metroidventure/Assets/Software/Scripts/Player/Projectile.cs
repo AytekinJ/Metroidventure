@@ -1,12 +1,16 @@
+using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Projectile : MonoBehaviour
 {
     public float speed = 10f; 
     private Vector2 targetDirection;
+    private GameObject gameManager;
 
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameController");
         Destroy(gameObject, 3f);
     }
 
@@ -32,6 +36,7 @@ public class Projectile : MonoBehaviour
         if(other.gameObject.CompareTag("Enemy"))
         {
             Destroy(other.gameObject);
+            gameManager.GetComponent<EnemyManager>().SkorArttiranAnimeKizlari();
         }
     }
 }

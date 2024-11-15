@@ -22,7 +22,7 @@ public class PMovement : MonoBehaviour
     private bool hasStamina = true;
 
     public Image staminaBar;
-    public Canvas canvas;
+    public GameObject StaminaBarCanvasimsi;
     public float stamina, maxStamina;
     public float dashStamCost, runStamCost;
     public float staminaCharge;
@@ -35,7 +35,7 @@ public class PMovement : MonoBehaviour
     private void Start()
     {
         textYenile();
-        canvas.enabled = false;   
+        StaminaBarCanvasimsi.SetActive(false);
         rb = GetComponent<Rigidbody2D>();
         currentSpeed = speed;
         lastDashTime = -dashCooldown;
@@ -48,7 +48,7 @@ public class PMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift) && hasStamina)
         {
-            canvas.enabled = true;
+            StaminaBarCanvasimsi.SetActive(true);
             currentSpeed = runSpeed;
 
             stamina -= runStamCost * Time.deltaTime;
@@ -129,7 +129,7 @@ public class PMovement : MonoBehaviour
         if(recharge != null) StopCoroutine(recharge);
         recharge = StartCoroutine(RechargeStamina());
 
-        canvas.enabled = true; 
+        StaminaBarCanvasimsi.SetActive(true);
 
         StartCoroutine(EndDash());
     }
@@ -156,11 +156,11 @@ public class PMovement : MonoBehaviour
             yield return new WaitForSeconds(.1f);
             hasStamina = true;
         }
-        canvas.enabled = false;
+        StaminaBarCanvasimsi.SetActive(false);
     }
     IEnumerator HideCanvasAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        canvas.enabled = false;
+        StaminaBarCanvasimsi.SetActive(false);
     }
 }
